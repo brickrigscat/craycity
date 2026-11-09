@@ -1,2 +1,39 @@
  hi
 testing ark live inbed coz why not arklife.moreemojis:green_crayfish arklife.moreemojis:blue_crayfish arklife.moreemojis:orange_crayfish
+
+
+
+player cownt
+
+<div id="cray-players" style="
+  display:inline-flex;
+  align-items:center;
+  gap:12px;
+  padding:16px 22px;
+  border-radius:16px;
+  background:#1c2333;
+  color:white;
+  font-family:Arial,sans-serif;
+  border:1px solid #394355;
+">
+  <span>Players Online</span>
+  <strong id="cray-count">...</strong>
+</div>
+
+<script>
+async function updateCount() {
+  try {
+    const r = await fetch(
+      "https://api.mcstatus.io/v2/status/java/craycity.minekeep.gg"
+    );
+    if (!r.ok) throw new Error();
+    const data = await r.json();
+    document.getElementById("cray-count").textContent =
+      data.online ? data.players.online : "0";
+  } catch {
+    document.getElementById("cray-count").textContent = "?";
+  }
+}
+updateCount();
+setInterval(updateCount, 60000);
+</script>
